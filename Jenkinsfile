@@ -1,26 +1,41 @@
 pipeline {
-    agent any
+    agent any // Correct usage of 'agent any'
+
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/mikito9/javaapp.git'
+                git branch: 'main', url: 'https://github.com/mikito9/javaapp.git'
             }
         }
-        stage('Unzip HTML') {
+
+        stage('Build') {
             steps {
-                sh 'unzip -o javaapp.zip -d ./'
+                echo 'Building the application...'
+                // Add build steps here (e.g., Maven, Gradle, etc.)
             }
         }
-        stage('Build Docker Image') {
+
+        stage('Test') {
             steps {
-                sh 'docker build -t my-html-site .'
+                echo 'Running tests...'
+                // Add test steps here
             }
         }
-        stage('Run Docker Container') {
+
+        stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8080:80 my-html-site'
+                echo 'Deploying the application...'
+                // Add deployment steps here
             }
         }
     }
-}
 
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
