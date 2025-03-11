@@ -6,9 +6,20 @@ pipeline {
             steps {
                 git branch: 'main', 
                     url: 'https://github.com/mikito9/javaapp.git', 
-                    credentialsId: 'mikito9'  // Replace with your credentials ID
+                    credentialsId: 'mikito9'
             }
         }
-        // Other stages...
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'  // Adjust for your build tool
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying application..."'
+            }
+        }
     }
 }
