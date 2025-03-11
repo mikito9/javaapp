@@ -1,0 +1,5 @@
+# Dockerfile
+FROM openjdk:11-jre-slim  # Base image for Java application
+WORKDIR /app
+COPY target/myapp.jar /app/myapp.jar  # Copy the built JAR file
+CMD ["java", "-jar", "myapp.jar"]    # Command to run the application
